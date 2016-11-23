@@ -1,11 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {loadPics} from '../actions/loader';
-
-const Actions = ({load}) =>
-  <div className="actions">
-    {[1, 2, 3, 4].map((num, i) => <a key={i} onClick={load(num)}>{num}</a>)}
-  </div>;
+import {getAmount, getSources} from '../selectors/cats';
+import Actions from './Actions';
 
 const Pics = ({pics}) =>
   <div>
@@ -19,6 +16,7 @@ class CatPicLoader extends React.Component {
     const {pics} = this.props;
     return (
       <div>
+        <h1>Cat pic loader</h1>
         <Actions load={this.load} />
         <Pics pics={pics} />
       </div>
@@ -26,17 +24,10 @@ class CatPicLoader extends React.Component {
   }
 }
 
-const getSrc = (key, state) => {
-  if (state.api && state.api[key] && !state.api[key].loading) {
-    return state.api[key].url;
-  }
-  return null;
-}
-
 const mapStateToProps = state => {
-  const amount = state.api.amount;
+  const amount = getAmount(state);
   return {
-    pics: Array.from(Array(amount)).map((_, i) => getSrc(i, state))
+    pics: getSources(amount)(state)
   };
 };
 export default connect(mapStateToProps, {loadPics})(CatPicLoader);

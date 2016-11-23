@@ -1,26 +1,41 @@
 import {API_START, API_DONE, API_CLEAR} from '../actions/api';
 
-export default (state = {}, action) => {
+const initialState = {
+  cats: {},
+  movies: {},
+};
+
+export default (state = initialState, action) => {
+  const {prefix, key, data, url} = action.payload || {};
   switch (action.type) {
     case API_START:
       return {
         ...state,
-        amount: action.payload.amount,
-        [action.payload.key]: {
-          loading: true,
-          url: action.payload.url,
+        [prefix]: {
+          ...state[prefix],
+          [key]: {
+            loading: true,
+            url,
+          }
         }
       };
     case API_DONE:
       return {
         ...state,
-        [action.payload.key]: {
-          loading: false,
-          url: action.payload.url,
+        [prefix]: {
+          ...state[prefix],
+          [key]: {
+            loading: false,
+            url,
+            data,
+          }
         }
       };
     case API_CLEAR:
-      return {};
+      return {
+        ...state,
+        [prefix]: {}
+      };
     default:
       return state;
   }

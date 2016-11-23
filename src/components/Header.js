@@ -1,9 +1,19 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {isSomethingLoading} from '../selectors/extra';
 
-const Header = () => (
+const Header = props => (
   <header>
-    <h1>Cat pic loader</h1>
+    <span>redux selectors demo</span>
+    <div>
+      <span>Info stuff: </span>
+      {props.isSomethingLoading && <span>loading</span>}
+    </div>
   </header>
 );
 
-export default Header;
+const mapStateToProps = state => ({
+  isSomethingLoading: isSomethingLoading(state)
+});
+
+export default connect(mapStateToProps)(Header);
