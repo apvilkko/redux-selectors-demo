@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {loadMovies} from '../actions/loader';
-import {getIds} from '../selectors/movies';
+import {getIds, isMoviesLoading} from '../selectors/movies';
 import Actions from './Actions';
 import Movie from './Movie';
 
@@ -15,19 +15,20 @@ class Movies extends React.Component {
   load = amount => () => this.props.loadMovies(amount);
 
   render() {
-    const {ids} = this.props;
+    const {ids, isLoading} = this.props;
     return (
       <div>
         <h1>Movie list</h1>
         <Actions load={this.load} />
-        <MovieList ids={ids} />
+        {!isLoading && <MovieList ids={ids} />}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  ids: getIds(state)
+  ids: getIds(state),
+  isLoading: isMoviesLoading(state),
 });
 
 export default connect(mapStateToProps, {loadMovies})(Movies);

@@ -12,7 +12,7 @@ const getBlob = (payload, dispatch) => {
   .then(blob => {
     dispatch(done({
       ...payload,
-      url: URL.createObjectURL(blob)
+      data: URL.createObjectURL(blob)
     }));
   });
 }

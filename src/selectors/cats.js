@@ -17,7 +17,7 @@ const isCatLoading = key => createSelector(
 
 const getCatUrl = key => createSelector(
   getCat(key),
-  cat => cat ? cat.url : null
+  cat => cat ? cat.data : null
 );
 
 const getLoadedUrl = key => createSelector(

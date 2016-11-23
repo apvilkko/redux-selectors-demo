@@ -2,7 +2,8 @@ import R from 'ramda';
 
 export const getSection = prefix => R.pathOr({}, ['api', prefix]);
 
-export const hasLoadingThings = root => R.pipe(
+export const hasLoadingThings = R.pipe(
+  R.values,
   R.map(R.prop('loading')),
   R.any(R.equals(true)),
-)(R.values(root));
+);

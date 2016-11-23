@@ -4,7 +4,7 @@ import {getMovie} from '../selectors/movies';
 
 const Movie = ({data}) => (
   <div className="movie-card">
-    <div>{data.Title} ({data.Year})</div>
+    <div>{data.TitleAndYear}</div>
     <div>{data.imdbRating}{' | '}{data.Metascore}</div>
   </div>
 );

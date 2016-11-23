@@ -6,8 +6,9 @@ const Header = props => (
   <header>
     <span>redux selectors demo</span>
     <div>
-      <span>Info stuff: </span>
-      {props.isSomethingLoading && <span>loading</span>}
+      <span className={`fade ${props.isSomethingLoading ? 'in' : 'out'}`}>
+        loading
+      </span>
     </div>
   </header>
 );
