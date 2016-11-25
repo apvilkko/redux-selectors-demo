@@ -22,7 +22,10 @@ const getCatUrl = key => createSelector(
 
 const getLoadedUrl = key => createSelector(
   [isCatLoading(key), getCatUrl(key)],
-  (loading, url) => loading ? null : url
+  (loading, url) => {
+    console.log("getLoadedUrl", url);
+    return loading ? null : url
+  }
 );
 
 export const getSources = amount => state =>

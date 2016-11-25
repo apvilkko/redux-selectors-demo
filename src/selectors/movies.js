@@ -14,12 +14,18 @@ const decorateTitle = movie => ({
   TitleAndYear: `${movie.Title} (${movie.Year})`
 });
 
-export const getMovie = id => createSelector(
-  getRoot,
-  R.pipe(
-    R.pathOr({}, [id, 'data']),
-    decorateTitle
-  )
+const getMovieAt = (state, props) => {
+  console.log("getMovieAt");
+  return R.pathOr({}, [props.movieId, 'data'])(getRoot(state));
+}
+
+export const getMovie = createSelector(
+  getMovieAt,
+  movie => {
+    console.log("getMovie", movie);
+    return decorateTitle(movie);
+  }
+
 );
 
 export const isMoviesLoading = createSelector(

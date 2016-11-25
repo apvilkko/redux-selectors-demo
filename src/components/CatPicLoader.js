@@ -25,6 +25,7 @@ class CatPicLoader extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log("CatPicLoader mapStateToProps");
   const amount = getAmount(state);
   return {
     pics: getSources(amount)(state)

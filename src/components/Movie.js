@@ -9,8 +9,11 @@ const Movie = ({data}) => (
   </div>
 );
 
-const mapStateToProps = (state, ownProps) => ({
-  data: getMovie(ownProps.movieId)(state)
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log("Movie mapStateToProps");
+  return {
+    data: getMovie(state, ownProps)
+  };
+};
 
 export default connect(mapStateToProps)(Movie);
