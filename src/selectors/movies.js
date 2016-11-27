@@ -14,18 +14,21 @@ const decorateTitle = movie => ({
   TitleAndYear: `${movie.Title} (${movie.Year})`
 });
 
-const getMovieAt = (state, props) => {
+const getMovieAt = (state, movieId) => {
   console.log("getMovieAt");
-  return R.pathOr({}, [props.movieId, 'data'])(getRoot(state));
+  return R.pathOr({}, [movieId, 'data'])(getRoot(state));
 }
 
-export const getMovie = createSelector(
+/*
+ * decorateTitle is our "heavy" computation which we want to run only once,
+ * so we'll have to use factory style for both selector and mapStateToProps
+ */
+export const makeGetMovie = () => createSelector(
   getMovieAt,
   movie => {
     console.log("getMovie", movie);
     return decorateTitle(movie);
   }
-
 );
 
 export const isMoviesLoading = createSelector(

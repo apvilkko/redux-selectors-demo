@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getMovie} from '../selectors/movies';
+import {makeGetMovie} from '../selectors/movies';
 
 const Movie = ({data}) => (
   <div className="movie-card">
@@ -9,11 +9,15 @@ const Movie = ({data}) => (
   </div>
 );
 
-const mapStateToProps = (state, ownProps) => {
-  console.log("Movie mapStateToProps");
-  return {
-    data: getMovie(state, ownProps)
+const makeMapStateToProps = () => {
+  const getMovie = makeGetMovie();
+  const mapStateToProps = (state, ownProps) => {
+    console.log("Movie mapStateToProps");
+    return {
+      data: getMovie(state, ownProps.movieId)
+    };
   };
-};
+  return mapStateToProps;
+}
 
-export default connect(mapStateToProps)(Movie);
+export default connect(makeMapStateToProps)(Movie);
